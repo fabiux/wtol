@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys, os, _mysql, time
-import utils
+import utils as u
 from utils import getLogPath, toTimeStamp, toUnixTime
 
 # get a result from a query
@@ -27,10 +27,10 @@ def main():
                     qso_timestamp = line[1]
                     qso_frequency = line[2]
                     qso_mode = line[3]
-                    qso_timestamp_min = toTimeStamp(toUnixTime(qso_timestamp) - (60 * utils.QSO_TIME_VARIANCE))
-                    qso_timestamp_max = toTimeStamp(toUnixTime(qso_timestamp) + (60 * utils.QSO_TIME_VARIANCE))
-                    qso_frequency_min = str(int(qso_frequency) - utils.QSO_FREQ_VARIANCE)
-                    qso_frequency_max = str(int(qso_frequency) + utils.QSO_FREQ_VARIANCE)
+                    qso_timestamp_min = toTimeStamp(toUnixTime(qso_timestamp) - (60 * u.QSO_TIME_VARIANCE))
+                    qso_timestamp_max = toTimeStamp(toUnixTime(qso_timestamp) + (60 * u.QSO_TIME_VARIANCE))
+                    qso_frequency_min = str(int(qso_frequency) - u.QSO_FREQ_VARIANCE)
+                    qso_frequency_max = str(int(qso_frequency) + u.QSO_FREQ_VARIANCE)
                     sql = "SELECT COUNT(callsign) AS tot FROM qso WHERE (callsign = '" + callsign_dx + "') AND (callsign_dx = '" + callsign + "') AND (datestart BETWEEN '" + qso_timestamp_min + "' AND '" + qso_timestamp_max + "') AND (frequency BETWEEN '" + qso_frequency_min + "' AND '" + qso_frequency_max + "') AND (mode = '" + qso_mode + "') AND (qsl = 0)"
                     result = getQueryResult(db, sql)
                     if result[0][0] == '0':
