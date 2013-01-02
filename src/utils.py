@@ -2,7 +2,7 @@ from datetime import datetime
 from time import mktime
 
 # constants
-CALLSIGN_NUM = 100
+CALLSIGN_NUM = 10000
 MIN_QSO_NUM = 100
 MAX_QSO_NUM = 500
 MIN_QSO_DATE = '2012-12-01 00:00:00'
